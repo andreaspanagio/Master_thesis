@@ -17,8 +17,8 @@
 int main()
 {
     std::cout.precision(10);
-    std::string pathname="/Users/andreas/Documents/Master_Computational_Mechanics/Master_Thesis/Files3D/";
-    std::string filename="smallbox_dense.msh";
+    std::string pathname="";
+    std::string filename="";
     std::string meshRes,filename1,filename2;
     int method, flag=0;
     bool slNodes;
