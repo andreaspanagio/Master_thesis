@@ -101,9 +101,6 @@ createMesh<double,4,3>::createMesh(const std::string filename,const std::string 
     }
     inData.seekg(0,std::ios::beg); //set runner to read form the start of the open file
     
-    // Start measuring time
-    auto begin = std::chrono::high_resolution_clock::now();
-    
     std::cout<<"Initializing nodes...\n";
     inData>>nodesNumber;
     nodes= new node<double,3> *[nodesNumber];
@@ -424,21 +421,6 @@ createMesh<double,4,3>::createMesh(const std::string filename,const std::string 
     std::cout<<"Number of Inner Boundary Faces:    "<<iBFacesNumber<<"\n";
     std::cout<<"Number of Outer Boundary Faces:    "<<oBFacesNumber<<"\n";
     std::cout<<"\n\n\n";
-
-    /*
-     int EulerType= nodesNumber - edgesNumber + facesNumber - cellsNumber
-                    - 0.5*(iBNodesNumber + oBNodesNumber) + 0.25*(iBFacesNumber + oBFacesNumber);
-    if (EulerType != 0)
-    {
-        std::cout<<"Euler's type = "<<EulerType<<"\n";
-        std::cout<<"Some edges or faces are missing from your list(s). Logical debug necessary.\n";
-        exit(0);
-    }
-     */
-    // Stop measuring time and calculate the elapsed time
-    auto end = std::chrono::high_resolution_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-    printf("Time measured: %.3f seconds.\n", elapsed.count() * 1e-9);
 }
 
 
