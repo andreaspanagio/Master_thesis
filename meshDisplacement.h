@@ -159,8 +159,6 @@ void meshDisplacement<T,M,N>::IDW(bool slNodes){
     vector<T> sumD(3), dr(3);
     node<T,N> *node1, *node2;
     
-    // Start measuring time
-    auto begin = std::chrono::high_resolution_clock::now();
     //find characteristic length
     cLength= domainlength(oBNodes, oBNodesNum);
     
@@ -213,11 +211,6 @@ void meshDisplacement<T,M,N>::IDW(bool slNodes){
             displace[node1->getIndex()-1]= sumD/sumW;
         }
     } //end of parallel region
-    
-    // Stop measuring time and calculate the elapsed time
-    auto end = std::chrono::high_resolution_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-    printf("Time measured: %.3f seconds.\n", elapsed.count() * 1e-9);
 }
 
 template<typename T, int M, int N>
@@ -266,9 +259,6 @@ void meshDisplacement<T,M,N>::IDWquaternion(bool slNodes){
     quaternion<T> sumR, R1;
     vector<T> dr(3), sumD(3), r1(3);
     int oBSLNodesNum=0, nodesNum= inNodesNum + iBNodesNum + oBNodesNum;
-    
-    // Start measuring time
-    auto begin = std::chrono::high_resolution_clock::now();
     
     rotQ= new quaternion<double>[nodesNum];
     translation= new vector<double>[nodesNum];
@@ -353,10 +343,6 @@ void meshDisplacement<T,M,N>::IDWquaternion(bool slNodes){
             displace[node1->getIndex()-1]= sumD/sumW  + r1 - node1->operator()();
         }
     } //end of parallel region
-    // Stop measuring time and calculate the elapsed time
-    auto end = std::chrono::high_resolution_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-    printf("Time measured: %.3f seconds.\n", elapsed.count() * 1e-9);
 }
 
 template<typename T, int M, int N>
