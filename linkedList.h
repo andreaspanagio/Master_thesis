@@ -30,7 +30,7 @@ public:
     void dropNextItem();//deletes the item right after the beginning
     void dropThatItem(int i);//deletes the item stored at position i
     
-    template<typename t> friend linkedList<t> operator* (const linkedList<t> &left,const linkedList<t> &right);
+    template<typename t> friend linkedList<t> operator+ (const linkedList<t> &left,const linkedList<t> &right);
     const linkedList<T> &operator+= (linkedList<T> &right);
     const linkedList<T> &operator= (const linkedList<T> &right);
     template <typename U> friend std::ostream &operator<< (std::ostream &left, const linkedList<U> &right);
@@ -238,7 +238,6 @@ linkedList<T> operator+ (const linkedList<T> &left, const linkedList<T> &right){
 template<typename T>
 inline const linkedList<T> &linkedList<T>::operator+= (linkedList<T> &right){
     last()= right.first();
-    //last().next=&right;
     return *this;
 }
 
